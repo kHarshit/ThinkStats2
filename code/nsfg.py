@@ -68,6 +68,7 @@ def CleanFemPreg(df):
     # replace 'not ascertained', 'refused', 'don't know' with NaN
     na_vals = [97, 98, 99]
     df.birthwgt_lb.replace(na_vals, np.nan, inplace=True)
+    # The inplace flag tells replace to modify the existing Series rather than create a new one.
     df.birthwgt_oz.replace(na_vals, np.nan, inplace=True)
     df.hpagelb.replace(na_vals, np.nan, inplace=True)
 
