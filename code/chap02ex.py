@@ -21,7 +21,8 @@ def Mode(hist):
 
     returns: value from Hist
     """
-    return 0
+    p, x = max([(p, x) for x, p in hist.Items()])
+    return x
 
 
 def AllModes(hist):
@@ -31,7 +32,20 @@ def AllModes(hist):
 
     returns: iterator of value-freq pairs
     """
-    return []
+    return sorted(hist.Items(), key=itemgetter(1), reverse=True)
+
+
+def wt_diff(live, firsts, others):
+    mean0 = live.totalwgt_lb.mean()
+    mean1 = firsts.totalwgt_lb.mean()
+    mean2 = others.totalwgt_lb.mean()
+    var1 = firsts.totalwgt_lb.var()
+    var2 = others.totalwgt_lb.var()
+    print("mean: ", var1, var2)
+    print("diff_lb: ", mean1-mean2)
+    print("diff_rel_mean: ", (mean1-mean2)/mean0 * 100)
+    d = thinkstats2.CohenEffectSize(firsts.totalwgt_lb, others.totalwgt_lb)
+    print("cohen's d: ", d)
 
 
 def main(script):
